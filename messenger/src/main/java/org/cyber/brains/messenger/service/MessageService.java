@@ -1,7 +1,6 @@
 package org.cyber.brains.messenger.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +10,12 @@ import org.cyber.brains.messenger.model.Message;
 public class MessageService 
 {
 	private Map<Long, Message> messages = DatabaseClass.getMessages();
+	
+	public MessageService()
+	{
+		messages.put(1L, new Message(1, "Hello World!!!", "CyberSmoke"));
+		messages.put(2L, new Message(2, "Hello Jersey!!!", "CyberSmoke"));
+	}
 	
 	public List<Message> getAllMessages()
 	{
