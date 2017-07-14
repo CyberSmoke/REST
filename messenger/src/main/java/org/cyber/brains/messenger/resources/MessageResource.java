@@ -2,6 +2,7 @@ package org.cyber.brains.messenger.resources;
 
 import java.util.List;
 
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -12,6 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.cyber.brains.messenger.beans.MessageFilterBean;
 import org.cyber.brains.messenger.model.Message;
 import org.cyber.brains.messenger.service.MessageService;
 
@@ -22,8 +24,17 @@ public class MessageResource
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Message> getMessages()
+	public List<Message> getMessages( @BeanParam MessageFilterBean filterBean )
 	{
+		if( filterBean.getYear() > 0 )
+		{
+			return messageService.getAllMessagesForYear(filterBean.getYear());
+		}
+		
+		if( filterBean.getStart() >= 0 && filterBean.getSize() > 0 )
+		{
+			return messageService.getAllMessagesPaginated(filterBean.getStart(), filterBean.getSize());
+		}
 		return messageService.getAllMessages();
 	}
 	
@@ -59,5 +70,14 @@ public class MessageResource
 	public Message deleteMessage( @PathParam("messageId") long id )
 	{
 		return messageService.deleteMessage(id);
+	}
+	
+	@GET
+	@Path("/{messageId}/comments")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getComments( @PathParam("messageId") long id )
+	{
+		return "test";
 	}
 }
