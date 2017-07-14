@@ -72,12 +72,9 @@ public class MessageResource
 		return messageService.deleteMessage(id);
 	}
 	
-	@GET
 	@Path("/{messageId}/comments")
-	@Consumes(MediaType.TEXT_PLAIN)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getComments( @PathParam("messageId") long id )
+	public CommentResource getCommentResource()
 	{
-		return "test";
+		return new CommentResource();
 	}
 }

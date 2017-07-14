@@ -3,6 +3,7 @@ package org.cyber.brains.messenger.database;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.cyber.brains.messenger.model.Comment;
 import org.cyber.brains.messenger.model.Message;
 import org.cyber.brains.messenger.model.Profile;
 
@@ -20,4 +21,5 @@ public class DatabaseClass
 	{
 		return profiles;
 	}
+
 }
